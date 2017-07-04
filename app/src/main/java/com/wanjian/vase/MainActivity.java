@@ -85,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
                             ((TextView) detailView.findViewById(R.id.reqStateLine)).setText(message.reqStateLine);
 
                             TextView headers = ((TextView) detailView.findViewById(R.id.reqHeaders));
+                            headers.setText(null);
                             for (Map.Entry<String, String> entry : message.reqHeaders.entrySet()) {
                                 headers.append(entry.getKey());
                                 headers.append(" : ");
@@ -96,12 +97,14 @@ public class MainActivity extends AppCompatActivity {
 
                             ((TextView) detailView.findViewById(R.id.respStateLine)).setText(message.respStateLine);
                             headers = ((TextView) detailView.findViewById(R.id.respHeaders));
+                            headers.setText(null);
                             for (Map.Entry<String, String> entry : message.respHeaders.entrySet()) {
                                 headers.append(entry.getKey());
                                 headers.append(" : ");
                                 headers.append(entry.getValue());
                                 headers.append("\n\n");
                             }
+                            ((ImageView) detailView.findViewById(R.id.img)).setImageBitmap(null);
                             String contentType = message.respHeaders.get("Content-Type");
                             if (contentType != null && contentType.toLowerCase().contains("image")) {
                                 Bitmap bitmap = BitmapFactory.decodeByteArray(message.respBody, 0, message.respBody.length);
