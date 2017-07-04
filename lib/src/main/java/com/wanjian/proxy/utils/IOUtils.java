@@ -56,19 +56,29 @@ public class IOUtils {
 
     }
 
-    public static void copyStream(InputStream inputStream, OutputStream outputStream) throws IOException {
+    public static ByteArrayOutputStream copyStream(InputStream inputStream, OutputStream outputStream) throws IOException {
         Logger.log("copyStream started....");
 
         BufferedInputStream bufferedIn = new BufferedInputStream(inputStream);
-
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         int len;
         byte[] buff = new byte[1024];
         while ((len = bufferedIn.read(buff)) != -1) {
             outputStream.write(buff, 0, len);
-            Logger.log(new String(buff, 0, len));
+            // Logger.log(new String(buff, 0, len));
+            appendBody(buff, len, byteArrayOutputStream);
             outputStream.flush();
         }
         Logger.log("copyStream finished....");
 
+        return byteArrayOutputStream;
     }
+
+    private static void appendBody(byte[] bytes, int len, ByteArrayOutputStream byteArrayOutputStream) {
+        if (byteArrayOutputStream.size() > 2 * 1024 * 1024) {
+            return;
+        }
+        byteArrayOutputStream.write(bytes, 0, len);
+    }
+
 }

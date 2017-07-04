@@ -48,9 +48,9 @@ public class Tunnel implements IProtocol {
     private void proxyConnect(String line, Headers headers, final InputStream inputStream, final OutputStream outputStream) {
 
         try {
-            Logger.log(">>>>>>>>>>>");
-            Logger.log(line);
-            Logger.log(headers);
+            ////Logger.log(">>>>>>>>>>>");
+            //Logger.log(line);
+            //Logger.log(headers);
 
             InetSocketAddress address = mConfig.mHostMapper.map(line, headers);
             if (address == null) {
@@ -80,7 +80,7 @@ public class Tunnel implements IProtocol {
             ThreadPool.submit(new Runnable() {
                 @Override
                 public void run() {
-                    Logger.log("connect client->proxy  copyStream....");
+                    //Logger.log("connect client->proxy  copyStream....");
 
                     try {
                         IOUtils.copyStream(inputStream, proxyOut);
@@ -91,7 +91,7 @@ public class Tunnel implements IProtocol {
 //                        IOUtils.closeStream(proxyIn);
 //                        IOUtils.closeStream(outputStream);
                     }
-                    Logger.log("connect client->proxy finished....");
+                    //Logger.log("connect client->proxy finished....");
 
                 }
             });
@@ -100,14 +100,14 @@ public class Tunnel implements IProtocol {
             ThreadPool.submit(new Runnable() {
                 @Override
                 public void run() {
-                    Logger.log("connect server->proxy  copyStream....");
+                    //Logger.log("connect server->proxy  copyStream....");
 
                     try {
                         IOUtils.copyStream(proxyIn, outputStream);
                     } catch (Exception e) {
 
                     }
-                    Logger.log("connect server->proxy finished....");
+                    //Logger.log("connect server->proxy finished....");
 
                     IOUtils.closeStream(inputStream);
                     IOUtils.closeStream(proxyOut);

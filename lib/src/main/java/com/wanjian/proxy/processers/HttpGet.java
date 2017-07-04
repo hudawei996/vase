@@ -1,5 +1,6 @@
 package com.wanjian.proxy.processers;
 
+import com.wanjian.proxy.event.Message;
 import com.wanjian.proxy.http.Headers;
 
 import java.io.InputStream;
@@ -22,7 +23,8 @@ public class HttpGet extends HttpPost {
     }
 
     @Override
-    protected void copyBody(Headers headers, InputStream inputStream, OutputStream outputStream) {
+    protected void copyBody(Headers headers, InputStream inputStream, OutputStream outputStream, Message request) {
         // get 请求不需要发送body
     }
+
 }
